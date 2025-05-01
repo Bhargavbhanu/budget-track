@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Budget Track | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #fffdf3;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    nav {
+      background: linear-gradient(to right, #ffd166, #fcbf49);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav h1 {
+      font-size: 2rem;
+      background: linear-gradient(to right, #ef476f, #118ab2);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ef476f;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      background: linear-gradient(to bottom right, #fffce1, #fff9cc);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .hero h2 {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #444;
+      max-width: 720px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      background: #073b4c;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:hover {
+      background: #ef476f;
+      transform: scale(1.05);
+    }
+
+    .features {
+      padding: 4rem 2rem;
+      background: #ffffff;
+      text-align: center;
+      animation: slideUp 1s ease;
+    }
+
+    .features h3 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #222;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .feature-card {
+      background: #fffefc;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card img {
+      width: 60px;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h4 {
+      font-size: 1.2rem;
+      color: #f8961e;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .tips {
+      padding: 3rem 2rem;
+      background: #fefae0;
+      text-align: center;
+    }
+
+    .tips h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      color: #222;
+    }
+
+    .tips a {
+      display: inline-block;
+      margin: 0.5rem 1rem;
+      color: #0077b6;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .tips a:hover {
+      color: #ef476f;
+      text-decoration: underline;
+    }
+
+    footer {
+      background: linear-gradient(to right, #ffd166, #fcbf49);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .social-icons {
+      margin-top: 0.8rem;
+    }
+
+    .social-icons a {
+      margin: 0 10px;
+      color: #222;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ef476f;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      nav h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Budget Track</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h2>Welcome to Budget Track — Your Smart Finance Companion</h2>
+    <p>Designed for international students, Budget Track helps you manage your expenses, monitor your progress, and build better financial habits — anytime, anywhere.</p>
+    <a href="register.html" class="btn">Start Budgeting Now</a>
+  </section>
+
+  <section class="features">
+    <h3>Why Choose Budget Track?</h3>
+    <div class="features-grid">
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1170/1170576.png" alt="Track Instantly">
+        <h4>Track Instantly</h4>
+        <p>Log expenses in real-time from any device.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="Visual Insights">
+        <h4>Visual Insights</h4>
+        <p>View smart summaries and colorful spending charts.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2920/2920066.png" alt="Cloud Access">
+        <h4>Cloud Powered</h4>
+        <p>Access your budget securely from any device, anytime.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828427.png" alt="Security">
+        <h4>Secure & Private</h4>
+        <p>Your data is encrypted, private, and always under your control.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tips">
+    <h3>Helpful Budgeting Tips</h3>
+    <a href="https://www.wellsfargo.com/goals-going-to-college/student-budget/" target="_blank">Wells Fargo Student Budgeting</a>
+    <a href="https://www.pnc.com/insights/personal-finance/spend/first-year-of-college-budgeting-for-students.html" target="_blank">PNC First-Year Budget Guide</a>
+  </section>
+
+  <footer>
+    <div>Developed by Bhargav, Siva, Sunnith, Divya, Shasank</div>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/bhargav1803/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/bhargav_b.h.a.n.u/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://x.com/Bhargav_bhanu18" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>

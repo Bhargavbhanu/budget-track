@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | Budget Track</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(to bottom right, #fff9cc, #fff5e1);
+      color: #222;
+    }
+
+    nav {
+      background: linear-gradient(to right, #ffd166, #fcbf49);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(to right, #ef476f, #118ab2);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ef476f;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 80px);
+      padding: 1rem;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      animation: fadeIn 1s ease;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      color: #073b4c;
+      margin-bottom: 1.8rem;
+    }
+
+    form input {
+      width: 100%;
+      padding: 0.9rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    form button {
+      width: 100%;
+      padding: 0.9rem;
+      background: #073b4c;
+      color: white;
+      border: none;
+      font-weight: bold;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    form button:hover {
+      background: #ef476f;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      nav h1 {
+        font-size: 1.4rem;
+      }
+
+      .form-box {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Budget Track</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="register.html">Register</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Login to Budget Track</h2>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

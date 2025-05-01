@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | Budget Track</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: #fdfdf9;
+      color: #222;
+    }
+
+    nav {
+      background: linear-gradient(to right, #ffcc70, #ffd166);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(to right, #ef476f, #118ab2);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ef476f;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #073b4c;
+    }
+
+    .slogan {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #555;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: #073b4c;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 40px;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ef476f;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .summary {
+      margin-top: 2rem;
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 15px;
+    }
+
+    .status-success {
+      background: #d8f3dc;
+      color: #1b4332;
+      padding: 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .status-error {
+      background: #ffe5ec;
+      color: #c9184a;
+      padding: 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    canvas {
+      display: block;
+      max-width: 300px;
+      margin: 2rem auto 1rem auto;
+    }
+
+    .figure-box {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Budget Track</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="login.html">Logout</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 id="welcomeMsg">Welcome!</h2>
+    <p class="slogan">"A budget is more than numbers; it's your plan for financial freedom."</p>
+
+    <div id="incomeStep">
+      <label for="income">Monthly Income ($):</label>
+      <input type="number" id="income" />
+      <button onclick="showExpenseForm()">Continue</button>
+    </div>
+
+    <div id="expenseStep" class="hidden">
+      <label>Housing Rent:</label><input type="number" id="rent" />
+      <label>Food:</label><input type="number" id="food" />
+      <label>Tuition Fees:</label><input type="number" id="fees" />
+      <label>Insurance:</label><input type="number" id="insurance" />
+      <label>Utilities:</label><input type="number" id="utilities" />
+      <label>Other:</label><input type="number" id="other" />
+      <button onclick="calculateBudget()">Calculate Budget</button>
+    </div>
+
+    <div id="resultBox" class="summary hidden">
+      <div id="statusMessage"></div>
+      <p id="detailsMessage"></p>
+      <canvas id="expenseChart" width="280" height="280"></canvas>
+      <button onclick="downloadPDF()">Download PDF Report</button>
+    </div>
+
+    <div class="figure-box">
+      ⭐ Tip: Track your expenses weekly to stay on top of your goals.
+    </div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("budgetUser"));
+    if (user && user.name) {
+      document.getElementById("welcomeMsg").textContent = `Welcome, ${user.name} 👋`;
+    }
+
+    function showExpenseForm() {
+      const income = document.getElementById("income").value;
+      if (income && income > 0) {
+        localStorage.setItem("userIncome", income);
+        document.getElementById("incomeStep").classList.add("hidden");
+        document.getElementById("expenseStep").classList.remove("hidden");
+      } else {
+        alert("Please enter a valid income.");
+      }
+    }
+
+    function calculateBudget() {
+      const income = +localStorage.getItem("userIncome");
+      const rent = +document.getElementById("rent").value || 0;
+      const food = +document.getElementById("food").value || 0;
+      const fees = +document.getElementById("fees").value || 0;
+      const insurance = +document.getElementById("insurance").value || 0;
+      const utilities = +document.getElementById("utilities").value || 0;
+      const other = +document.getElementById("other").value || 0;
+      const total = rent + food + fees + insurance + utilities + other;
+      const percent = ((total / income) * 100).toFixed(1);
+
+      document.getElementById("resultBox").classList.remove("hidden");
+      const status = document.getElementById("statusMessage");
+      const detail = document.getElementById("detailsMessage");
+
+      if (total <= income) {
+        status.className = "status-success";
+        status.textContent = "✅ You're within your budget!";
+        detail.textContent = `Total expenses: $${total} of $${income} income (${percent}%).`;
+      } else {
+        status.className = "status-error";
+        status.textContent = "⚠️ You're exceeding your budget!";
+        detail.textContent = `Total expenses: $${total} of $${income} income (${percent}%).`;
+      }
+
+      const ctx = document.getElementById("expenseChart").getContext("2d");
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Rent", "Food", "Fees", "Insurance", "Utilities", "Other"],
+          datasets: [{
+            data: [rent, food, fees, insurance, utilities, other],
+            backgroundColor: ["#f94144", "#f3722c", "#f8961e", "#90be6d", "#43aa8b", "#577590"]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.text("Budget Track Summary", 20, 20);
+      doc.setFont("helvetica", "normal");
+      doc.text(document.getElementById("statusMessage").textContent, 20, 30);
+      doc.text(document.getElementById("detailsMessage").textContent, 20, 40);
+      doc.save("budget-report.pdf");
+    }
+  </script>
+</body>
+</html>

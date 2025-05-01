@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register | Budget Track</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(to bottom right, #fff9cc, #ffe9d6);
+      color: #222;
+    }
+
+    nav {
+      background: linear-gradient(to right, #ffd166, #fcbf49);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(to right, #ef476f, #118ab2);
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      animation: fadeIn 1s ease;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover { color: #ef476f; }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      padding: 1rem;
+    }
+
+    .form-box {
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      max-width: 460px;
+      width: 100%;
+      animation: fadeIn 1s ease;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      color: #073b4c;
+      margin-bottom: 1.8rem;
+    }
+
+    form label {
+      display: none;
+    }
+
+    form input {
+      width: 100%;
+      padding: 0.9rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .error-msg {
+      display: none;
+      color: #ef476f;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    form button {
+      width: 100%;
+      padding: 0.9rem;
+      background: #073b4c;
+      color: white;
+      border: none;
+      font-weight: bold;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    form button i {
+      margin-right: 8px;
+    }
+
+    form button:hover {
+      background: #ef476f;
+    }
+
+    .form-box a {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #0077b6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-box a:hover {
+      text-decoration: underline;
+      color: #ef476f;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      nav h1 {
+        font-size: 1.5rem;
+      }
+
+      .form-box {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Budget Track</h1>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Create Your Budget Track Account</h2>
+      <form id="registerForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Full Name" required autocomplete="name" />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="email" />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create Password" required autocomplete="new-password" />
+
+        <p class="error-msg" id="error-msg">Please fill in all fields correctly.</p>
+
+        <button type="submit"><i class="fas fa-user-plus"></i> Register</button>
+      </form>
+
+      <a href="login.html">Already have an account? Login</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("error-msg");
+
+      if (!name || !email || !password) {
+        errorMsg.textContent = "Please fill in all fields.";
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("budgetUser", JSON.stringify(user));
+      window.location.href = "dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
