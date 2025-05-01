@@ -159,6 +159,25 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
+<script>
+  const auth = firebase.auth();
+
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("budgetUser", JSON.stringify({ email: user.email }));
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Login failed: " + error.message);
+      });
+  });
+</script>
 
 </body>
 </html>
