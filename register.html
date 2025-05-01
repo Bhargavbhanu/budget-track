@@ -208,6 +208,25 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
+<script>
+  const auth = firebase.auth();
+
+  document.getElementById("registerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const name = document.getElementById("name").value.trim();
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        localStorage.setItem("budgetUser", JSON.stringify({ name, email }));
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        alert("Registration failed: " + error.message);
+      });
+  });
+</script>
 
 </body>
 </html>
